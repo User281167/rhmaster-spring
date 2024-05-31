@@ -3,6 +3,7 @@ package com.rhmaster.rhmaster.controller;
 import com.rhmaster.rhmaster.Services.JobOfferService;
 import com.rhmaster.rhmaster.models.JobOffer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/ofertas")
+@RequestMapping("/api/ofertas")
 public class JobOfferController {
     @Autowired
     private JobOfferService service;

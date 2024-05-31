@@ -7,6 +7,7 @@ import com.rhmaster.rhmaster.dtos.SignUpRequestDto;
 import com.rhmaster.rhmaster.exceptions.RoleNotFoundException;
 import com.rhmaster.rhmaster.exceptions.UserAlreadyExistsException;
 import com.rhmaster.rhmaster.factories.RoleFactory;
+import com.rhmaster.rhmaster.models.ERole;
 import com.rhmaster.rhmaster.models.Role;
 import com.rhmaster.rhmaster.models.User;
 import com.rhmaster.rhmaster.security.UserDetailsImpl;
@@ -74,9 +75,7 @@ public class AuthServiceImpl implements AuthService {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+        String rol = userDetails.getAuthorities().toString();
 
         SignInResponseDto signInResponseDto = SignInResponseDto.builder()
                 .username(userDetails.getUsername())
@@ -84,7 +83,7 @@ public class AuthServiceImpl implements AuthService {
                 .id(userDetails.getId())
                 .token(jwt)
                 .type("Bearer")
-                .roles(roles)
+                .rol(rol)
                 .build();
 
         return ResponseEntity.ok(
@@ -102,20 +101,12 @@ public class AuthServiceImpl implements AuthService {
                 .username(signUpRequestDto.getUserName())
                 .password(passwordEncoder.encode(signUpRequestDto.getPassword()))
                 .enabled(true)
-                .roles(determineRoles(signUpRequestDto.getRoles()))
+                .rol(determineRoles())
                 .build();
     }
 
-    private Set<Role> determineRoles(Set<String> strRoles) throws RoleNotFoundException {
-        Set<Role> roles = new HashSet<>();
-
-        if (strRoles == null) {
-            roles.add(roleFactory.getInstance("user"));
-        } else {
-            for (String role : strRoles) {
-                roles.add(roleFactory.getInstance(role));
-            }
-        }
-        return roles;
+    private Role determineRoles() throws RoleNotFoundException {
+        Role rol = roleFactory.getInstance("candidato");
+        return rol;
     }
 }

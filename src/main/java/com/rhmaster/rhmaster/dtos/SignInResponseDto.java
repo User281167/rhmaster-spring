@@ -3,7 +3,6 @@ package com.rhmaster.rhmaster.dtos;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -14,5 +13,5 @@ public class SignInResponseDto {
     private UUID id;
     private String username;
     private String email;
-    private List<String> roles;
+    private String rol;
 }

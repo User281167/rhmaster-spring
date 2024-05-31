@@ -29,6 +29,9 @@ public class RoleFactory {
             case "contratado" -> {
                 return roleRepository.findByName(ERole.ROLE_CONTRATADO);
             }
+            case "retirado" -> {
+                return roleRepository.findByName(ERole.ROLE_RETIRADO);
+            }
             case "psico" -> {
                 return roleRepository.findByName(ERole.ROLE_PSICO);
             }
