@@ -3,7 +3,6 @@ package com.rhmaster.rhmaster.controller;
 import com.rhmaster.rhmaster.Services.JobOfferService;
 import com.rhmaster.rhmaster.models.JobOffer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
@@ -22,7 +21,7 @@ public class JobOfferController {
     }
 
     @GetMapping("/todos")
-    public List<JobOffer> getJobOffer() {
+    public List<JobOffer> getJobOffers() {
         return service.getJobOffers();
     }
 

@@ -1,6 +1,5 @@
 package com.rhmaster.rhmaster.models;
 
-
 public enum ERole {
     ROLE_CANDIDATO,
     ROLE_EVALUADO,

@@ -12,27 +12,30 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users",
-        uniqueConstraints = {
+@Table(name = "users", uniqueConstraints = {
                 @UniqueConstraint(columnNames = "email")
-        })
+})
 @Builder
 public class User {
-    @Id
-    @GeneratedValue
-    private UUID id;
+        @Id
+        @GeneratedValue
+        private UUID id;
 
-    private String username;
-    private String email;
-    private String password;
+        private String username;
 
-    @Column(name = "habilitado")
-    private boolean enabled;
+        @Column(name = "nombres")
+        private String name;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinTable(  name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Role rol = new Role(ERole.ROLE_CANDIDATO);
+        @Column(name = "apellidos")
+        private String lastname;
+
+        private String email;
+        private String password;
+
+        @Column(name = "habilitado")
+        private boolean enabled;
+
+        @OneToOne(fetch = FetchType.LAZY)
+        @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+        private Role rol = new Role(ERole.ROLE_CANDIDATO);
 }

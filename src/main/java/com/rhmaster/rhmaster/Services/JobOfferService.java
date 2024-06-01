@@ -13,25 +13,25 @@ import java.util.UUID;
 @Service
 public class JobOfferService {
     @Autowired
-    JobOfferRepository ofertaRepository;
+    JobOfferRepository jobOfferRepository;
 
     public List<JobOffer> getJobOffers() {
-        return ofertaRepository.findAll();
+        return jobOfferRepository.findAll();
     }
 
     public Optional<JobOffer> getJobOffer(UUID id) {
-        return ofertaRepository.findById(id);
+        return jobOfferRepository.findById(id);
     }
 
     public void save(JobOffer offer) {
-        ofertaRepository.save(offer);
+        jobOfferRepository.save(offer);
     }
 
     public void save(LinkedList<JobOffer> offer) {
-        offer.forEach(o -> ofertaRepository.save(o));
+        offer.forEach(o -> jobOfferRepository.save(o));
     }
 
     public void deleteById(UUID id) {
-        ofertaRepository.deleteById(id);
+        jobOfferRepository.deleteById(id);
     }
 }

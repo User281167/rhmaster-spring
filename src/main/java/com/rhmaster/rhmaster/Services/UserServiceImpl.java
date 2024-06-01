@@ -1,13 +1,12 @@
 package com.rhmaster.rhmaster.Services;
 
-
 import com.rhmaster.rhmaster.models.User;
 import com.rhmaster.rhmaster.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
