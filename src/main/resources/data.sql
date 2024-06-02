@@ -30,22 +30,6 @@ create table if not exists recordatorios (
     foreign key (user_id) references users(id) on delete cascade
 );
 
-create table if not exists ofertas (
-    id binary(16) default uuid() not null primary key,
-    titulo varchar(255),
-    cargo varchar(255),
-    experiencia varchar(255),
-    lugar varchar(255),
-    salario int(11),
-    responsabilidades varchar(255),
-    prestaciones varchar(255),
-    tipo varchar(255),
-    descripcion varchar(255),
-    requisitos varchar(255),
-    fecha_publicacion datetime(6),
-    visible boolean
-);
-
 create table if not exists secciones (
   id binary(16) default uuid() not null primary key,
   nombre varchar(255)
@@ -75,3 +59,19 @@ AFTER INSERT ON users
 FOR EACH ROW
   INSERT INTO empleados (id, fecha_union)
   VALUES (NEW.id, NOW());
+
+create table if not exists ofertas (
+    id binary(16) default uuid() not null primary key,
+    titulo varchar(255),
+    cargo varchar(255),
+    experiencia varchar(255),
+    lugar varchar(255),
+    salario int(11),
+    responsabilidades varchar(255),
+    prestaciones varchar(255),
+    tipo varchar(255),
+    descripcion varchar(255),
+    requisitos varchar(255),
+    fecha_publicacion datetime(6),
+    visible boolean
+);

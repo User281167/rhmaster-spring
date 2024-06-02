@@ -58,7 +58,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(
                                 "/api/auth/**",
-                                        "/api/ofertas/todos"
+                                        "/api/ofertas/todos",
+                                        "/api/ofertas/{id}"
                                 )
                                 .permitAll()
                                 .anyRequest().authenticated()

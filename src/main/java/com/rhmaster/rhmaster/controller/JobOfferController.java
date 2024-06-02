@@ -3,6 +3,7 @@ package com.rhmaster.rhmaster.controller;
 import com.rhmaster.rhmaster.Services.JobOfferService;
 import com.rhmaster.rhmaster.models.JobOffer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
@@ -16,10 +17,6 @@ public class JobOfferController {
     @Autowired
     private JobOfferService service;
 
-    public JobOfferController(JobOfferService service) {
-        this.service = service;
-    }
-
     @GetMapping("/todos")
     public List<JobOffer> getJobOffers() {
         return service.getJobOffers();
@@ -31,16 +28,19 @@ public class JobOfferController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteById(@PathVariable("id") UUID id) {
         service.deleteById(id);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void save(@RequestBody JobOffer JobOffer) {
         service.save(JobOffer);
     }
 
     @PostMapping("/lista")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void save(@RequestBody LinkedList<JobOffer> JobOffers) {
         service.save(JobOffers);
     }
