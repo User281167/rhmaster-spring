@@ -39,4 +39,10 @@ public class CandidateController {
     public void saveCandidate(@RequestBody CandidateDto candidateDto) {
         candidateService.saveCandidate(candidateDto);
     }
+
+    @PostMapping("/preliminar/{candidateId}/{value}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void setPreliminary(@PathVariable("candidateId") UUID candidateId, @PathVariable("value") boolean value) {
+        candidateService.setPreliminary(candidateId, value);
+    }
 }

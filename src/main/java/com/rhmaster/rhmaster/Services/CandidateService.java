@@ -63,4 +63,10 @@ public class CandidateService {
     public void deleteCandidateById(UUID candidateId) {
         candidateRepository.deleteById(candidateId);
     }
+
+    public void setPreliminary(UUID candidateId, boolean value) {
+        Candidate candidate = candidateRepository.getReferenceById(candidateId);
+        candidate.setPreliminary(value);
+        candidateRepository.save(candidate);
+    }
 }

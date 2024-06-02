@@ -19,6 +19,9 @@ public class Candidate {
     @GeneratedValue
     private UUID id;
 
+    @Column(name = "preliminar")
+    private boolean preliminary;
+
     @OneToOne
     @JoinColumn(name = "oferta_id", referencedColumnName = "id")
     private JobOffer jobOffer;
