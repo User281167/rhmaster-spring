@@ -3,9 +3,11 @@ package com.rhmaster.rhmaster.controller;
 import com.rhmaster.rhmaster.Services.ReminderService;
 import com.rhmaster.rhmaster.models.Reminder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +23,7 @@ public class ReminderController {
         return reminderService.getReminders(userId);
     }
 
-    @GetMapping("/type/{userId}/{type}")
+    @GetMapping("/tipo/{userId}/{type}")
     @PreAuthorize("hasRole('ROLE_CONTRATADO') or hasRole('ROLE_PSICO') or hasRole('ROLE_ADMIN')")
     public List<Reminder> getReminderByType(@PathVariable("userId") UUID userId, @PathVariable("type") String type) {
         return reminderService.getReminderByUserIdAndType(userId, type);
@@ -29,8 +31,13 @@ public class ReminderController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_CONTRATADO') or hasRole('ROLE_PSICO') or hasRole('ROLE_ADMIN')")
-    public void save(@RequestBody Reminder reminder) {
-        reminderService.save(reminder);
+    public ResponseEntity<String> save(@RequestBody Reminder reminder) {
+        try {
+            reminderService.save(reminder);
+            return ResponseEntity.ok("Recordatorio guardado");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al guardar, posible tipo de recordatorio no válido");
+        }
     }
 
     @DeleteMapping("/{id}")
