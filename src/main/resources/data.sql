@@ -45,3 +45,8 @@ create table if not exists ofertas (
     fecha_publicacion datetime(6),
     visible boolean
 );
+
+create table if not exists secciones (
+  id binary(16) default uuid() not null primary key,
+  nombre varchar(255)
+);

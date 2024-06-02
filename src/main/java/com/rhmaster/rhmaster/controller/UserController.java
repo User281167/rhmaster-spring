@@ -3,7 +3,7 @@ package com.rhmaster.rhmaster.controller;
 import com.rhmaster.rhmaster.Services.UserServiceImpl;
 import com.rhmaster.rhmaster.exceptions.RoleNotFoundException;
 import com.rhmaster.rhmaster.models.User;
-import com.rhmaster.rhmaster.requestClass.SetRoleRequest;
+import com.rhmaster.rhmaster.dtos.SetRoleRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
