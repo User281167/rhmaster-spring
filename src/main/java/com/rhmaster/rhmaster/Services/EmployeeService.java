@@ -1,7 +1,9 @@
 package com.rhmaster.rhmaster.Services;
 
 import com.rhmaster.rhmaster.dtos.EmployeeDto;
+import com.rhmaster.rhmaster.dtos.EmployeeRequestDto;
 import com.rhmaster.rhmaster.dtos.SetEmployeeDto;
+import com.rhmaster.rhmaster.dtos.UserDto;
 import com.rhmaster.rhmaster.models.Employee;
 import com.rhmaster.rhmaster.models.WorkSection;
 import com.rhmaster.rhmaster.repository.EmployeeRepository;
@@ -21,7 +23,7 @@ public class EmployeeService {
     @Autowired
     WorkSectionRepositoy workSectionRepositoy;
 
-    public void saveEmployee(EmployeeDto employeeDto) {
+    public void saveEmployee(EmployeeRequestDto employeeDto) {
         Employee employee = employeeRepository.findById(employeeDto.getId()).get();
         employee.setAdress(employeeDto.getAdress());
         employee.setCedula(employeeDto.getCedula());
@@ -41,16 +43,50 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public Employee getEmployeeById(UUID id) {
-        return employeeRepository.findById(id).get();
+    private EmployeeDto toEmployeeD(Employee employee) {
+        UserDto user = new UserDto();
+        user.setId(employee.getUser().getId());
+        user.setUsername(employee.getUser().getUsername());
+        user.setName(employee.getUser().getName());
+        user.setLastname(employee.getUser().getLastname());
+        user.setEmail(employee.getUser().getEmail());
+        user.setEnabled(employee.getUser().isEnabled());
+
+        EmployeeDto employeeDto = new EmployeeDto();
+        employeeDto.setId(employee.getId());
+        employeeDto.setAdress(employee.getAdress());
+        employeeDto.setCedula(employee.getCedula());
+        employeeDto.setPhone(employee.getPhone());
+        employeeDto.setSkills(employee.getSkills());
+        employeeDto.setUnionDate(employee.getUnionDate());
+        employeeDto.setLastDayDate(employee.getLastDayDate());
+        employeeDto.setRetirementDate(employee.getRetirementDate());
+        employeeDto.setPost(employee.getPost());
+        employeeDto.setSalary(employee.getSalary());
+        employeeDto.setBankEntity(employee.getBankEntity());
+        employeeDto.setBankAccount(employee.getBankAccount());
+        employeeDto.setWorkSection(employee.getWorkSection());
+        employeeDto.setUser(user);
+
+        return employeeDto;
+    }
+
+    public EmployeeDto getEmployeeById(UUID id) {
+        Employee employee = employeeRepository.findById(id).get();
+        return toEmployeeD(employee);
     }
 
     public void deleteEmployeeById(UUID id) {
         employeeRepository.deleteById(id);
     }
 
-    public List<Employee> getEmployees() {
-        return employeeRepository.findAll();
+    public List<EmployeeDto> getEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+
+        List<EmployeeDto> employeesDtos = employees.stream()
+                .map(this::toEmployeeD).toList();
+
+        return employeesDtos;
     }
 
     public ResponseEntity<String> update(SetEmployeeDto employeeDto) {

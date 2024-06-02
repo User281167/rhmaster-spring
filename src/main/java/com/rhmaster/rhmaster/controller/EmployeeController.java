@@ -1,8 +1,9 @@
 package com.rhmaster.rhmaster.controller;
 
 import com.rhmaster.rhmaster.Services.EmployeeService;
-import com.rhmaster.rhmaster.dtos.SetEmployeeDto;
 import com.rhmaster.rhmaster.dtos.EmployeeDto;
+import com.rhmaster.rhmaster.dtos.SetEmployeeDto;
+import com.rhmaster.rhmaster.dtos.EmployeeRequestDto;
 import com.rhmaster.rhmaster.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,19 +21,19 @@ public class EmployeeController {
 
     @GetMapping("/todos")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<Employee> getEmployees() {
+    public List<EmployeeDto> getEmployees() {
         return employeeService.getEmployees();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CONTRATADO')")
-    public Employee getEmployeeById(@PathVariable("id") UUID id) {
+    public EmployeeDto getEmployeeById(@PathVariable("id") UUID id) {
         return employeeService.getEmployeeById(id);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void save(@RequestBody EmployeeDto employee) {
+    public void save(@RequestBody EmployeeRequestDto employee) {
         employeeService.saveEmployee(employee);
     }
 

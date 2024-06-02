@@ -1,5 +1,6 @@
 package com.rhmaster.rhmaster.Services;
 
+import com.rhmaster.rhmaster.dtos.UserDto;
 import com.rhmaster.rhmaster.exceptions.RoleNotFoundException;
 import com.rhmaster.rhmaster.factories.RoleFactory;
 import com.rhmaster.rhmaster.models.Role;
@@ -34,8 +35,23 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    public List<User> getAllUser(){
-        return userRepository.findAll();
+    public List<UserDto> getAllUser(){
+        List<User> users = userRepository.findAll();
+
+        List<UserDto> userDtos = users.stream()
+                .map(user -> {
+                    UserDto userDto = new UserDto();
+                    userDto.setId(user.getId());
+                    userDto.setUsername(user.getUsername());
+                    userDto.setName(user.getName());
+                    userDto.setLastname(user.getLastname());
+                    userDto.setEmail(user.getEmail());
+                    userDto.setEnabled(user.isEnabled());
+                    return userDto;
+                })
+                .toList();
+
+        return userDtos;
     }
 
     public void setRole(UUID userId, String role) throws RoleNotFoundException {

@@ -1,7 +1,8 @@
 package com.rhmaster.rhmaster.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import com.rhmaster.rhmaster.models.WorkSection;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmployeeDto {
-    @Id
+    @NotBlank
     private UUID id;
 
     private String adress;
@@ -34,5 +35,6 @@ public class EmployeeDto {
     private String skills;
     private String bankEntity;
     private String bankAccount;
-    private UUID workSection;
+    private WorkSection workSection;
+    private UserDto user;
 }

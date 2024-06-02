@@ -1,6 +1,7 @@
 package com.rhmaster.rhmaster.controller;
 
 import com.rhmaster.rhmaster.Services.UserServiceImpl;
+import com.rhmaster.rhmaster.dtos.UserDto;
 import com.rhmaster.rhmaster.exceptions.RoleNotFoundException;
 import com.rhmaster.rhmaster.models.User;
 import com.rhmaster.rhmaster.dtos.SetRoleRequest;
@@ -30,7 +31,7 @@ public class UserController {
 
     @GetMapping("/todos")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<User> getUsers() {
+    public List<UserDto> getUsers() {
         return userService.getAllUser();
     }
 }
