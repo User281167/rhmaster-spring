@@ -84,3 +84,10 @@ create table if not exists candidatos (
   foreign key (empleado_id) references empleados(id) on delete cascade,
   foreign key (oferta_id) references ofertas(id) on delete cascade
 );
+
+create table if not exists horarios (
+  id binary(16) default uuid() not null primary key,
+  empleado_id binary(16) not null,
+  horario varchar(255),
+  foreign key (empleado_id) references empleados(id) on delete cascade
+);

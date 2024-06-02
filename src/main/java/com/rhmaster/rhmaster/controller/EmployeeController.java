@@ -4,7 +4,6 @@ import com.rhmaster.rhmaster.Services.EmployeeService;
 import com.rhmaster.rhmaster.dtos.EmployeeDto;
 import com.rhmaster.rhmaster.dtos.SetEmployeeDto;
 import com.rhmaster.rhmaster.dtos.EmployeeRequestDto;
-import com.rhmaster.rhmaster.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
