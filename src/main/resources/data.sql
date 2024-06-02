@@ -63,15 +63,23 @@ FOR EACH ROW
 create table if not exists ofertas (
     id binary(16) default uuid() not null primary key,
     titulo varchar(255),
+    tipo varchar(255),
     cargo varchar(255),
+    descripcion varchar(255),
     experiencia varchar(255),
     lugar varchar(255),
     salario int(11),
     responsabilidades varchar(255),
     prestaciones varchar(255),
-    tipo varchar(255),
-    descripcion varchar(255),
     requisitos varchar(255),
     fecha_publicacion datetime(6),
     visible boolean
+);
+
+create table if not exists candidatos (
+  id binary(16) default uuid() not null primary key,
+  empleado_id binary(16) not null,
+  oferta_id binary(16) not null,
+  foreign key (empleado_id) references empleados(id) on delete cascade,
+  foreign key (oferta_id) references ofertas(id) on delete cascade
 );
