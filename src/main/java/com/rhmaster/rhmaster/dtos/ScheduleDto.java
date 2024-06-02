@@ -9,7 +9,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScheduleRequestDto {
+public class ScheduleDto {
     private UUID id;
     private String scheduleDate;
 }

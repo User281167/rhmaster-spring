@@ -1,6 +1,6 @@
 package com.rhmaster.rhmaster.Services;
 
-import com.rhmaster.rhmaster.dtos.ScheduleRequestDto;
+import com.rhmaster.rhmaster.dtos.ScheduleDto;
 import com.rhmaster.rhmaster.models.Employee;
 import com.rhmaster.rhmaster.models.Schedule;
 import com.rhmaster.rhmaster.repository.EmployeeRepository;
@@ -18,14 +18,14 @@ public class ScheduleService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public void saveSchedule(ScheduleRequestDto request) {
+    public void saveSchedule(ScheduleDto request) {
         Schedule update = scheduleRepository.findById(request.getId()).get();
         update.setScheduleDate(request.getScheduleDate());
 
         scheduleRepository.save(update);
     }
 
-    public ScheduleRequestDto getSchedule(UUID userId) {
+    public ScheduleDto getSchedule(UUID userId) {
         Schedule schedule = scheduleRepository.findByEmployeeId(userId);
 
         if (schedule == null) {
@@ -38,7 +38,7 @@ public class ScheduleService {
             scheduleRepository.save(schedule);
         }
 
-        ScheduleRequestDto request = new ScheduleRequestDto();
+        ScheduleDto request = new ScheduleDto();
         request.setId(schedule.getId());
         request.setScheduleDate(schedule.getScheduleDate());
 

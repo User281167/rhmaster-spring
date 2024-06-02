@@ -38,24 +38,10 @@ public class CandidateService {
         JobOffer offer = jobOfferRepository.getReferenceById(candidateDto.getJobOfferId());
         Employee employee = employeeRepository.getReferenceById(candidateDto.getEmployeeId());
 
-        if (employee == null) {
-            System.out.println("Employee not found");
-            System.exit(1);
-        }
-
-        if (offer == null) {
-            System.out.println("Job offer not found");
-            System.exit(1);
-        }
-
         Candidate candidate = Candidate.builder()
                 .jobOffer(offer)
                 .employee(employee)
                 .build();
-
-        if (candidate.getId() == null) {
-            candidate.setId(UUID.randomUUID());
-        }
 
         candidateRepository.save(candidate);
     }
