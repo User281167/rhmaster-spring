@@ -50,3 +50,28 @@ create table if not exists secciones (
   id binary(16) default uuid() not null primary key,
   nombre varchar(255)
 );
+
+create table if not exists empleados (
+  id binary(16) not null primary key,
+  direccion varchar(255),
+  cedula varchar(255),
+  telefono varchar(255),
+  fecha_union datetime(6) default NOW(),
+  fecha_ultimo_dia datetime(6),
+  fecha_retiro datetime(6),
+  cargo varchar(255),
+  seccion binary(16),
+  salario int(11),
+  habilidades varchar(255),
+  entidad_bancaria varchar(255),
+  cuenta_bancaria varchar(255),
+
+  foreign key (id) references users(id) on delete cascade,
+  foreign key (seccion) references secciones(id)
+);
+
+CREATE TRIGGER if not exists crear_empleado
+AFTER INSERT ON users
+FOR EACH ROW
+  INSERT INTO empleados (id, fecha_union)
+  VALUES (NEW.id, NOW());
