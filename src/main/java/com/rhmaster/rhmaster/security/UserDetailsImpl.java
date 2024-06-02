@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Data

@@ -19,3 +19,29 @@ create table if not exists user_roles (
     foreign key (user_id) references users(id) on delete cascade,
     foreign key (role_id) references roles(id) on delete cascade
 );
+
+create table if not exists recordatorios (
+    id binary(16) default uuid() not null primary key,
+    user_id binary(16) not null,
+    tipo enum('entrevista', 'nomina', 'liquidacion', 'prueba', 'examen', 'induccion', 'otro') not null,
+    titulo varchar(255) not null,
+    descripcion varchar(255),
+    fecha datetime(6) not null,
+    foreign key (user_id) references users(id) on delete cascade
+);
+
+create table if not exists ofertas (
+    id binary(16) default uuid() not null primary key,
+    titulo varchar(255),
+    cargo varchar(255),
+    experiencia varchar(255),
+    lugar varchar(255),
+    salario int(11),
+    responsabilidades varchar(255),
+    prestaciones varchar(255),
+    tipo varchar(255),
+    descripcion varchar(255),
+    requisitos varchar(255),
+    fecha_publicacion datetime(6),
+    visible boolean
+);

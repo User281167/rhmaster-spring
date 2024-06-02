@@ -52,9 +52,6 @@ public class AuthServiceImpl implements AuthService {
         if (userService.existsByEmail(signUpRequestDto.getEmail())) {
             throw new UserAlreadyExistsException("Registration Failed: Provided email already exists. Try sign in or provide another email.");
         }
-        if (userService.existsByUsername(signUpRequestDto.getUserName())) {
-            throw new UserAlreadyExistsException("Registration Failed: Provided username already exists. Try sign in or provide another username.");
-        }
 
         User user = createUser(signUpRequestDto);
         userService.save(user);

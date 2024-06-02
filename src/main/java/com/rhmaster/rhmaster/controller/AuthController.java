@@ -28,5 +28,4 @@ public class AuthController {
     public ResponseEntity<ApiResponseDto<?>> signInUser(@RequestBody @Valid SignInRequestDto signInRequestDto) {
         return authService.signInUser(signInRequestDto);
     }
-
 }

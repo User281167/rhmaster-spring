@@ -5,7 +5,6 @@ import com.rhmaster.rhmaster.repository.JobOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,7 +26,7 @@ public class JobOfferService {
         jobOfferRepository.save(offer);
     }
 
-    public void save(LinkedList<JobOffer> offer) {
+    public void save(List<JobOffer> offer) {
         offer.forEach(o -> jobOfferRepository.save(o));
     }
 

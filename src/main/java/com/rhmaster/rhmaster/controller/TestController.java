@@ -16,7 +16,7 @@ public class TestController {
 
     //    Only users with 'ROLE_USER' role can access this end point
     @GetMapping("/user")
-    @PreAuthorize("hasRole('ROLE_CANDIDATO')")
+    @PreAuthorize("hasRole('ROLE_CANDIDATO') or hasRole('ROLE_EVALUADO') or hasRole('ROLE_CONTRATADO') or hasRole('ROLE_RETIRADO')")
     public ResponseEntity<ApiResponseDto<?>> UserDashboard() {
         return ResponseEntity
                 .status(HttpStatus.OK)
