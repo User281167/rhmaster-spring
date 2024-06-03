@@ -35,6 +35,7 @@ public class FileStorageService {
                 "INDUCCION",
                 "LIQUIDACION",
                 "DOCUMENTO",
+                "PRUEBA_PSICO",
                 "OTRO"
         );
 

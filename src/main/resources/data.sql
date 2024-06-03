@@ -143,7 +143,7 @@ create table if not exists archivos (
   data BLOB,
   nombre varchar(255) not null,
   tipo_archivo varchar(255) not null,
-  tipo enum('NOMINA', 'PRUEBA', 'EXAMEN', 'INDUCCION', 'LIQUIDACION', 'DOCUMENTO', 'OTRO') default 'OTRO',
+  tipo enum('NOMINA', 'PRUEBA', 'EXAMEN', 'INDUCCION', 'LIQUIDACION', 'DOCUMENTO', 'PRUEBA_PSICO', 'OTRO') default 'OTRO',
   user_id binary(16),
   foreign key (user_id) references users(id) on delete cascade
 );
