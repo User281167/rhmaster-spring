@@ -115,7 +115,7 @@ create table if not exists bonificaciones (
   tipo varchar(255)
 );
 
-create table if not exists bonificacio_empleado (
+create table if not exists bonificacion_empleado (
   id binary(16) default uuid() not null primary key,
   bonificacion_id binary(16) not null,
   empleado_id binary(16) not null,
