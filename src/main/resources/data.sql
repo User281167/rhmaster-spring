@@ -180,3 +180,11 @@ create table if not exists asignaciones (
   archivo_id binary(16),
   foreign key (archivo_id) references archivos(id)
 );
+create table if not exists asignacion_empleado (
+  id binary(16) default uuid() not null primary key,
+  asignacion_id binary(16) not null,
+  empleado_id binary(16) not null,
+  notas varchar(255),
+  foreign key (asignacion_id) references asignaciones(id) on delete cascade,
+  foreign key (empleado_id) references empleados(id) on delete cascade
+);

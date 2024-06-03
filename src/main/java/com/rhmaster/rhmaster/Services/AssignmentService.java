@@ -66,11 +66,18 @@ public class AssignmentService {
 
     public ResponseEntity<String> update(AssignmentDto assignmentDto) {
         try {
+            FileDB file = null;
+
+            if (assignmentDto.getFileId() != null) {
+                file = fileDBRepository.findById(assignmentDto.getFileId()).get();
+            }
+
             Assignment assignment = assignmentRepository.findById(assignmentDto.getId()).get();
             assignment.setType(getDefinedType(assignmentDto.getType()));
             assignment.setTitle(assignmentDto.getTitle());
             assignment.setDescription(assignmentDto.getDescription());
             assignment.setDate(assignmentDto.getDate());
+            assignment.setFile(file);
             assignmentRepository.save(assignment);
 
             return ResponseEntity.ok("Assignment updated successfully");
