@@ -157,3 +157,16 @@ create table if not exists pruebas_psico (
   foreign key (user_id) references users(id) on delete cascade,
   foreign key (archivo_id) references archivos(id) on delete cascade
 );
+
+create table if not exists certificados (
+  id binary(16) default uuid() not null primary key,
+  empleado_id binary(16) not null,
+  archivo_id binary(16),
+  tipo varchar(255),
+  descripcion varchar(255),
+  fecha_solicitud datetime(6),
+  pendiente boolean default true not null,
+  respuesta_admin varchar(255),
+  foreign key (empleado_id) references empleados(id),
+  foreign key (archivo_id) references archivos(id)
+);

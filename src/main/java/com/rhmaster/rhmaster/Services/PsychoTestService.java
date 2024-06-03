@@ -74,24 +74,28 @@ public class PsychoTestService {
 
     // findall tests
     public ResponseEntity<List<PsychoTestDto>> getAll() {
-        List<PsychoTest> tests = psychoTestRepository.findAll();
+        try {
+            List<PsychoTest> tests = psychoTestRepository.findAll();
 
-        List<PsychoTestDto> dtos = tests.stream().map(test -> {
-            UUID fileId = null;
+            List<PsychoTestDto> dtos = tests.stream().map(test -> {
+                UUID fileId = null;
 
-            if (test.getFile() != null) {
-                fileId = test.getFile().getId();
-            }
+                if (test.getFile() != null) {
+                    fileId = test.getFile().getId();
+                }
 
-            PsychoTestDto dto = new PsychoTestDto();
-            dto.setId(test.getId());
-            dto.setNotes(test.getNotes());
-            dto.setDate(test.getDate());
-            dto.setUserId(test.getUser().getId());
-            dto.setFileId(fileId);
-            return dto;
-        }).toList();
+                PsychoTestDto dto = new PsychoTestDto();
+                dto.setId(test.getId());
+                dto.setNotes(test.getNotes());
+                dto.setDate(test.getDate());
+                dto.setUserId(test.getUser().getId());
+                dto.setFileId(fileId);
+                return dto;
+            }).toList();
 
-        return ResponseEntity.ok(dtos);
+            return ResponseEntity.ok(dtos);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }
