@@ -21,4 +21,7 @@ public class BonusRequestDto {
 
     @NotBlank
     private boolean isAuxiliary;
+
+    @NotBlank
+    private boolean isDeducted;
 }

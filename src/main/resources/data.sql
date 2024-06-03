@@ -113,6 +113,7 @@ create table if not exists bonificaciones (
   descripcion varchar(255),
   valor int(11),
   es_auxilio boolean not null default false,
+  es_deducido boolean not null default false,
   tipo varchar(255)
 );
 

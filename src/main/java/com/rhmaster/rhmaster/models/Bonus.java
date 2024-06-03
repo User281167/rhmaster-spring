@@ -30,4 +30,7 @@ public class Bonus {
 
     @Column(name = "es_auxilio")
     private Boolean isAuxiliary;
+
+    @Column(name = "es_deducido")
+    private Boolean isDeducted;
 }
