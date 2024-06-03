@@ -124,3 +124,16 @@ create table if not exists bonificacion_empleado (
   foreign key (bonificacion_id) references bonificaciones(id) on delete cascade,
   foreign key (empleado_id) references empleados(id) on delete cascade
 );
+
+create table if not exists permisos (
+  id binary(16) default uuid() not null,
+  empleado_id binary(16) not null,
+  tipo varchar(255),
+  fecha_solicitud datetime(6),
+  fecha_inicio datetime(6),
+  fecha_fin datetime(6),
+  estado enum('ACEPTADO', 'RECHAZADO', 'PENDIENTE') default 'PENDIENTE' not null,
+  descripcion varchar(255),
+  respuesta_admin varchar(255),
+  foreign key (empleado_id) references empleados(id) on delete cascade
+);

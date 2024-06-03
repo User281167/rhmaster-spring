@@ -2,7 +2,6 @@ package com.rhmaster.rhmaster.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rhmaster.rhmaster.models.ExtraHour;
-import com.rhmaster.rhmaster.models.ScheduleMissing;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
