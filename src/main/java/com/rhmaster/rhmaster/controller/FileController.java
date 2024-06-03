@@ -2,6 +2,8 @@ package com.rhmaster.rhmaster.controller;
 
 
 import com.rhmaster.rhmaster.Services.FileStorageService;
+import com.rhmaster.rhmaster.dtos.FileDBRequestDto;
+import com.rhmaster.rhmaster.dtos.FileDBResponseDto;
 import com.rhmaster.rhmaster.message.ResponseFile;
 import com.rhmaster.rhmaster.message.ResponseMessage;
 import com.rhmaster.rhmaster.models.FileDB;
@@ -24,13 +26,13 @@ public class FileController {
     @Autowired
     private FileStorageService storageService;
 
-    @PostMapping("/upload/{userId}")
+    @PostMapping("/upload/{userId}/{type}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_PSICO') or hasRole('ROLE_CANDIDATO') or hasRole('ROLE_EVALUADO') or hasRole('ROLE_CONTRATADO') or hasRole('ROLE_RETIRADO')")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file, @PathVariable("userId") UUID userId) {
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file, @PathVariable("userId") UUID userId, @PathVariable("type") String type) {
         String message = "";
 
         try {
-            storageService.store(file, userId);
+            storageService.store(file, userId, type);
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
@@ -59,6 +61,19 @@ public class FileController {
 
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
+
+    @GetMapping("/files/metadata/{userId}/{type}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_PSICO') or hasRole('ROLE_CANDIDATO') or hasRole('ROLE_EVALUADO') or hasRole('ROLE_CONTRATADO') or hasRole('ROLE_RETIRADO')")
+    public ResponseEntity<List<FileDBResponseDto>> getListFilesMetadata(@PathVariable("userId") UUID userId, @PathVariable("type") String type) {
+        return storageService.getAllFilesMetadata(userId, type);
+    }
+
+    @PostMapping("/upload/metadata")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_PSICO') or hasRole('ROLE_CANDIDATO') or hasRole('ROLE_EVALUADO') or hasRole('ROLE_CONTRATADO') or hasRole('ROLE_RETIRADO')")
+    public ResponseEntity<String> getListFilesMetadata(@RequestBody FileDBRequestDto fileDto) {
+        return storageService.storeMetadata(fileDto);
+    }
+
 
     @GetMapping("/files/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_PSICO') or hasRole('ROLE_CANDIDATO') or hasRole('ROLE_EVALUADO') or hasRole('ROLE_CONTRATADO') or hasRole('ROLE_RETIRADO')")
