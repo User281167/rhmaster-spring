@@ -112,6 +112,7 @@ create table if not exists bonificaciones (
   id binary(16) default uuid() not null primary key,
   descripcion varchar(255),
   valor int(11),
+  es_auxilio boolean not null default false,
   tipo varchar(255)
 );
 

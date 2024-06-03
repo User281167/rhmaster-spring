@@ -18,4 +18,7 @@ public class BonusRequestDto {
 
     @NotBlank
     private UUID bonusId;
+
+    @NotBlank
+    private boolean isAuxiliary;
 }

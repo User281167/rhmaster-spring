@@ -27,4 +27,7 @@ public class Bonus {
 
     @Column(name = "tipo")
     private String type;
+
+    @Column(name = "es_auxilio")
+    private Boolean isAuxiliary;
 }
