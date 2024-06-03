@@ -13,6 +13,16 @@ public class RoleFactory {
     RoleRepository roleRepository;
 
     public Role getInstance(String role) throws RoleNotFoundException {
+        if (role == null) {
+            throw new RoleNotFoundException("Role cannot be null");
+        }
+
+        role = role.toLowerCase();
+
+        if (role.startsWith("ROLE_")) {
+            role = role.substring(5);
+        }
+
         switch (role) {
             case "admin" -> {
                 return roleRepository.findByName(ERole.ROLE_ADMIN);
@@ -29,11 +39,13 @@ public class RoleFactory {
             case "contratado" -> {
                 return roleRepository.findByName(ERole.ROLE_CONTRATADO);
             }
+            case "retirado" -> {
+                return roleRepository.findByName(ERole.ROLE_RETIRADO);
+            }
             case "psico" -> {
                 return roleRepository.findByName(ERole.ROLE_PSICO);
             }
             default -> throw new RoleNotFoundException("No role found for " + role);
         }
     }
-
 }

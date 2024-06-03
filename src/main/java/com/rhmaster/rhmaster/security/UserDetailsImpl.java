@@ -9,11 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @AllArgsConstructor
 @Data
@@ -36,9 +32,8 @@ public class UserDetailsImpl implements UserDetails {
 
 
     public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+        List<GrantedAuthority> authorities = new LinkedList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRol().getName().name()));
 
         return new UserDetailsImpl(
                 user.getId(),

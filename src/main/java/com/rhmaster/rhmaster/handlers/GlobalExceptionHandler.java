@@ -17,12 +17,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponseDto<?>> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException exception) {
-
         List<String> errorMessage = new ArrayList<>();
 
         exception.getBindingResult().getFieldErrors().forEach(error -> {
             errorMessage.add(error.getDefaultMessage());
         });
+
         return ResponseEntity
                 .badRequest()
                 .body(
@@ -57,5 +57,4 @@ public class GlobalExceptionHandler {
                                 .build()
                 );
     }
-
 }

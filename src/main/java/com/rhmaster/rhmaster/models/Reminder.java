@@ -1,0 +1,37 @@
+package com.rhmaster.rhmaster.models;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+import java.util.UUID;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "recordatorios")
+public class Reminder {
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @Column(name = "user_id")
+    private UUID userId;
+
+    @Column(name = "titulo")
+    private String title;
+
+    @Column(name = "tipo")
+    private String type;
+
+    @Column(name = "descripcion")
+    private String description;
+
+    @Column(name = "fecha")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date date;
+}

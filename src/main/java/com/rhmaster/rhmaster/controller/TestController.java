@@ -16,7 +16,7 @@ public class TestController {
 
     //    Only users with 'ROLE_USER' role can access this end point
     @GetMapping("/user")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_CANDIDATO') or hasRole('ROLE_EVALUADO') or hasRole('ROLE_CONTRATADO') or hasRole('ROLE_RETIRADO')")
     public ResponseEntity<ApiResponseDto<?>> UserDashboard() {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -38,6 +38,17 @@ public class TestController {
                         .build());
     }
 
+    @GetMapping("/psico")
+    @PreAuthorize("hasRole('ROLE_PSICO')")
+    public ResponseEntity<ApiResponseDto<?>> PsicoDashboard() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponseDto.builder()
+                        .isSuccess(true)
+                        .message("Psico dashboard!")
+                        .build());
+    }
+
     //    Only users with 'ROLE_SUPER_ADMIN' role can access this end point'
     @GetMapping("/superAdmin")
     @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
@@ -52,7 +63,7 @@ public class TestController {
 
     //    Users with 'ROLE_SUPER_ADMIN' or 'ROLE_ADMIN' roles can access this end point'
     @GetMapping("/AdminOrSuperAdmin")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_CANDIDATO') or hasRole('ROLE_ADMIN')")
     public ResponseEntity<ApiResponseDto<?>> AdminOrSuperAdminContent() {
         return ResponseEntity
                 .status(HttpStatus.OK)
