@@ -137,3 +137,13 @@ create table if not exists permisos (
   respuesta_admin varchar(255),
   foreign key (empleado_id) references empleados(id) on delete cascade
 );
+
+create table if not exists archivos (
+  id binary(16) default uuid() not null primary key,
+  data BLOB,
+  nombre varchar(255) not null,
+  tipo_archivo varchar(255) not null,
+  tipo enum('NOMINA', 'PRUEBA', 'EXAMEN', 'INDUCCION', 'LIQUIDACION', 'DOCUMENTO', 'OTRO') default 'OTRO',
+  user_id binary(16),
+  foreign key (user_id) references users(id) on delete cascade
+);
