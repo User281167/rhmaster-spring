@@ -170,3 +170,13 @@ create table if not exists certificados (
   foreign key (empleado_id) references empleados(id),
   foreign key (archivo_id) references archivos(id)
 );
+
+create table if not exists asignaciones (
+  id binary(16) default uuid() not null primary key,
+  titulo varchar(255),
+  tipo enum('EXAMEN', 'PRUEBA', 'INDUCCION', 'CAPACITACION', 'RETIRO', 'OTRO'),
+  descripcion varchar(255),
+  fecha_creacion datetime(6) default now(),
+  archivo_id binary(16),
+  foreign key (archivo_id) references archivos(id)
+);
