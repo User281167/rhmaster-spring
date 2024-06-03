@@ -107,3 +107,18 @@ create table if not exists horario_extra (
   fecha datetime(6),
   foreign key (horario_id) references horarios(id) on delete cascade
 );
+
+create table if not exists bonificaciones (
+  id binary(16) default uuid() not null primary key,
+  descripcion varchar(255),
+  valor int(11),
+  tipo varchar(255)
+);
+
+create table if not exists bonificacio_empleado (
+  id binary(16) default uuid() not null primary key,
+  bonificacion_id binary(16) not null,
+  empleado_id binary(16) not null,
+  foreign key (bonificacion_id) references bonificaciones(id) on delete cascade,
+  foreign key (empleado_id) references empleados(id) on delete cascade
+);
