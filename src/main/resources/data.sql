@@ -96,6 +96,14 @@ create table if not exists horario_falta (
   id binary(16) default uuid() not null primary key,
   horario_id binary(16) not null,
   razon varchar(255),
-  fecha datetime(6) not null,
+  fecha datetime(6),
+  foreign key (horario_id) references horarios(id) on delete cascade
+);
+
+create table if not exists horario_extra (
+  id binary(16) default uuid() not null primary key,
+  horario_id binary(16) not null,
+  horas TINYINT,
+  fecha datetime(6),
   foreign key (horario_id) references horarios(id) on delete cascade
 );

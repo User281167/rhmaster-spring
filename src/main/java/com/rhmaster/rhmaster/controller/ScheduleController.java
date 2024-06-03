@@ -1,10 +1,11 @@
 package com.rhmaster.rhmaster.controller;
 
+import com.rhmaster.rhmaster.Services.ExtraHourService;
 import com.rhmaster.rhmaster.Services.ScheduleMissingService;
 import com.rhmaster.rhmaster.Services.ScheduleService;
+import com.rhmaster.rhmaster.dtos.ExtraHourDto;
 import com.rhmaster.rhmaster.dtos.ScheduleDto;
 import com.rhmaster.rhmaster.dtos.ScheduleMissingDto;
-import com.rhmaster.rhmaster.models.ScheduleMissing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,10 @@ public class ScheduleController {
 
     @Autowired
     private ScheduleMissingService missingService;
+
+    @Autowired
+    private ExtraHourService extraHourService;
+
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -41,7 +46,7 @@ public class ScheduleController {
 
     @GetMapping("/falta/{scheduleId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<ScheduleMissingDto> saveMissing(@PathVariable("scheduleId") UUID scheduleId) {
+    public List<ScheduleMissingDto> getMissing(@PathVariable("scheduleId") UUID scheduleId) {
         return missingService.getMissing(scheduleId);
     }
 
@@ -49,5 +54,23 @@ public class ScheduleController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteMissing(@PathVariable("id") UUID id) {
         missingService.delete(id);
+    }
+
+    @PostMapping("/hora-extra")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void addExtraHour(@RequestBody ExtraHourDto extraHourDto) {
+        extraHourService.addExtraHour(extraHourDto);
+    }
+
+    @GetMapping("/hora-extra/{scheduleId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<ExtraHourDto> getExtraHours(@PathVariable("scheduleId") UUID scheduleId) {
+        return extraHourService.getExtrahours(scheduleId);
+    }
+
+    @DeleteMapping("/hora-extra/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void deleteExtraHour(@PathVariable("id") UUID id) {
+        extraHourService.delete(id);
     }
 }
