@@ -147,3 +147,13 @@ create table if not exists archivos (
   user_id binary(16),
   foreign key (user_id) references users(id) on delete cascade
 );
+
+create table if not exists pruebas_psico (
+  id binary(16) default uuid() not null primary key,
+  user_id binary(16) default uuid() not null,
+  archivo_id binary(16),
+  notas varchar(255),
+  fecha datetime(6),
+  foreign key (user_id) references users(id) on delete cascade,
+  foreign key (archivo_id) references archivos(id) on delete cascade
+);
